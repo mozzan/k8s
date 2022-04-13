@@ -4,25 +4,19 @@ metadata:
   name: mongo-pvc
 
 spec:
-  storageClassName: mylocalstorage
+  storageClassName: cloud-ssd
   accessModes: 
     - ReadWriteOnce
   resources:
     requests:
-      storage: 8Gi
+      storage: 7Gi
 
   
 --- 
-apiVersion: v1
-kind: PersistentVolume
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
-  name: local-storage
-spec:
-  storageClassName: mylocalstorage
-  capacity:
-    storage: 8Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/Users/mozzan/k8s/db/mongodb"
-    type: DirectoryOrCreate
+  name: cloud-ssd
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
