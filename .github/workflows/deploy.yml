@@ -20,5 +20,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd /workspace
-          git pull origin main
+          cd /workspace/k8s
+          git fetch origin
+          git checkout origin/master
